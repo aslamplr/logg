@@ -1,8 +1,8 @@
 import * as React from 'react';
-import './App.css';
 import LogCreator from './components/LogCreator';
 import LogList from './components/LogList';
 import LogStore from './store/LogStore';
+import './App.less';
 
 class App extends React.Component {
   private logStore: LogStore;

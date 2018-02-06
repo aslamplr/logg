@@ -1,5 +1,5 @@
 import * as React from 'react';
-import { Button, Input } from 'antd';
+import { Affix, Card, Button, Input } from 'antd';
 import './LogCreator.less';
 
 const { TextArea } = Input;
@@ -40,31 +40,33 @@ export default class LogCreator extends React.Component<P, S> {
   }
 
   onCtrlEnter = (evt: React.KeyboardEvent<HTMLTextAreaElement>) => {
-    if ( evt.ctrlKey && evt.keyCode === 13) {
+    if (evt.ctrlKey && evt.keyCode === 13) {
       this.logContent();
     }
   }
 
   render() {
     return (
-      <div className="LogCreator">
-        <TextArea
-          autoFocus={true}
-          className="LogTextArea"
-          value={this.state.content}
-          onChange={this.onContentChange}
-          onKeyDown={this.onCtrlEnter}
-          placeholder="Enter item to log (Ctrl+Enter)"
-          autosize={{ minRows: 2, maxRows: 6 }}
-        />
-        <Button
-          className="LogButton"
-          onClick={this.onLogContent}
-          type="primary"
-        >
-          Enter
-        </Button>
-      </div>
+      <Affix>
+        <Card className="LogCreator" bordered={false}>
+          <TextArea
+            autoFocus={true}
+            className="LogTextArea"
+            value={this.state.content}
+            onChange={this.onContentChange}
+            onKeyDown={this.onCtrlEnter}
+            placeholder="Enter item to log (Ctrl+Enter)"
+            autosize={{ minRows: 2, maxRows: 6 }}
+          />
+          <Button
+            className="LogButton"
+            onClick={this.onLogContent}
+            type="primary"
+          >
+            Enter
+          </Button>
+        </Card>
+      </Affix>
     );
   }
 }
