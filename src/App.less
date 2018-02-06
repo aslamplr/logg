@@ -1,37 +1,5 @@
-@smartphones: ~"only screen and (max-width: 479px)";
-@tablets: ~"only screen and (min-width: 768px) and (max-width: 959px)";
-@monitors: ~"only screen and (min-width: 959px) and (max-width: 1366px)";
-@bigmonitors: ~"only screen and (min-width: 1366px)";
-
 .App {
-  @media @smartphones {
-    margin-left: 10px !important;
-  }
-  @media @tablets {
-    margin-left: 120px !important;
-  }
-  @media @monitors {
-    margin-left: 320px !important;
-  }
-  @media @bigmonitors {
-    margin-left: 480px !important;
-  }
-  width: 600px;
+  width: 100%;
   padding: 10px;
   margin: 10px;
-}
-
-.App-header {
-  background-color: #222;
-  height: 150px;
-  padding: 20px;
-  color: white;
-}
-
-.App-title {
-  font-size: 1.5em;
-}
-
-.App-intro {
-  font-size: large;
 }
