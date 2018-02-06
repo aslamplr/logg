@@ -5,15 +5,15 @@ import './LogCreator.less';
 
 const { TextArea } = Input;
 
-interface P {
+interface LogCreatorProps {
   onLogContent: (content: string) => void;
 }
-interface S {
-  content: string | undefined;
+interface LogCreatorState {
+  content?: string;
 }
 
-export default class LogCreator extends React.Component<P, S> {
-  constructor(props: P) {
+export default class LogCreator extends React.Component<LogCreatorProps, LogCreatorState> {
+  constructor(props: LogCreatorProps) {
     super(props);
     this.state = this.getInitialState();
   }

@@ -1,6 +1,9 @@
 import { observable, computed } from 'mobx';
 import { LogItem } from '../models/LogItem';
 
+/**
+ * LogStore
+ */
 export default class LogStore {
     @observable
     private logs: LogItem[];
@@ -27,7 +30,7 @@ export default class LogStore {
     public addLog = (content: string) => {
         this.logs.push({
           content,
-          timestamp: new Date()
+          timestamp: new Date(),
         });
     }
 }
