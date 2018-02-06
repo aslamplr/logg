@@ -15,7 +15,7 @@ export default observer((props: P) => (
     {props.store.Reversed.map((log, i) =>
       <Item key={i}>
         <b className="LogItemTime">{log.timestamp.toLocaleString()}</b>
-        <Card className="LogItemCard">
+        <Card className="LogItemCard" hoverable={true}>
           <Card.Meta
             avatar={<Avatar src="https://zos.alipayobjects.com/rmsportal/ODTLcjxAfvqbxHnVXCYX.png" />}
             description={<div className="LogItemContent">{log.content}</div>}
