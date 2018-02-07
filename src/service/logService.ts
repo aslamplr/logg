@@ -54,3 +54,11 @@ export const getLoadMore = async (limit?: number) => {
   }
   return null;
 };
+
+export const subscribeForNewLogs = (onNewLogs: (newItems: LogItem[]) => void) => {
+  getBaseQuery().onSnapshot((snapshot) => {
+    const newItems: LogItem[] = [];
+    snapshot.forEach(doc => newItems.push(doc.data() as LogItem));
+    onNewLogs(newItems);
+  });
+};

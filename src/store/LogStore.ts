@@ -1,6 +1,6 @@
 import { observable, computed } from 'mobx';
 import { LogItem } from '../models/LogItem';
-import { saveLogItem, getLatestLogs, getLoadMore } from '../service/logService';
+import { saveLogItem, getLatestLogs, getLoadMore, subscribeForNewLogs } from '../service/logService';
 import * as _ from 'lodash';
 
 /**
@@ -35,6 +35,9 @@ export default class LogStore {
     if (latestLogs) {
       this.logs = latestLogs;
     }
+    subscribeForNewLogs((newLogs) => {
+      this.logs = this.logs.concat(newLogs);
+    });
   }
 
   public async getLoadMore() {
