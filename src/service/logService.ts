@@ -59,12 +59,18 @@ export const getLoadMore = async (limit?: number) => {
   return null;
 };
 
+const realtimeCache: string[] = [];
+
 export const subscribeForNewLogs = (onNewLogs: (newItems: LogItem[]) => void) => {
   getBaseQuery().endBefore(firstVisible).onSnapshot((snapshot) => {
     const newItems: LogItem[] = [];
     snapshot.docChanges.forEach(change => {
-      if (change.type === 'added') {
+      if (
+        change.type === 'added' &&
+        realtimeCache.indexOf(change.doc.id) === -1
+      ) {
         newItems.push(change.doc.data() as LogItem);
+        realtimeCache.push(change.doc.id);
       }
     });
     if (newItems.length > 0) {
