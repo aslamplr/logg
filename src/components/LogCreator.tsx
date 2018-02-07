@@ -57,7 +57,7 @@ export default class LogCreator extends React.Component<LogCreatorProps, LogCrea
             value={this.state.content}
             onChange={this.onContentChange}
             onKeyDown={this.onCtrlEnter}
-            placeholder={`Enter item to log ${shortCut}`}
+            placeholder={`Enter any text to log ${shortCut}`}
             autosize={{ minRows: 2, maxRows: 6 }}
           />
           <Button

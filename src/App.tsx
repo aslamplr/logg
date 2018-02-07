@@ -2,6 +2,7 @@ import * as React from 'react';
 import LogCreator from './components/LogCreator';
 import LogList from './components/LogList';
 import LogStore from './store/LogStore';
+import { Button } from 'antd';
 import './App.less';
 
 class App extends React.Component {
@@ -16,6 +17,9 @@ class App extends React.Component {
       <div className="App">
         <LogCreator onLogContent={this.logStore.addLog}/>
         <LogList store={this.logStore} />
+        <div style={{ textAlign: 'center' }}>
+        <Button onClick={() => this.logStore.getLoadMore()}>More</Button>
+        </div>
       </div>
     );
   }

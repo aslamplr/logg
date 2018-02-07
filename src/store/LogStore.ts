@@ -1,6 +1,7 @@
 import { observable, computed } from 'mobx';
 import { LogItem } from '../models/LogItem';
-import { saveLogItem, getAllLogs } from '../service/logService';
+import { saveLogItem, getLatestLogs, getLoadMore } from '../service/logService';
+import * as _ from 'lodash';
 
 /**
  * LogStore
@@ -15,8 +16,8 @@ export default class LogStore {
   }
 
   @computed
-  public get Reversed(): LogItem[] {
-    return this.logs.reverse();
+  public get SortedByLatest(): LogItem[] {
+    return _.orderBy(this.logs, ['timestamp'], ['desc']);
   }
 
   @computed
@@ -30,14 +31,17 @@ export default class LogStore {
   }
 
   public async getLogItems() {
-    const allLogs = await getAllLogs();
-    if (allLogs) {
-      allLogs.forEach((log) => this.logs.push(log));
+    const latestLogs = await getLatestLogs();
+    if (latestLogs) {
+      this.logs = latestLogs;
     }
-    setInterval(() => {
-      this.getLogItems();
-    // tslint:disable-next-line:align
-    }, 900000);
+  }
+
+  public async getLoadMore() {
+    const moreLogs = await getLoadMore();
+    if (moreLogs) {
+      this.logs = this.logs.concat(moreLogs);
+    }
   }
 
   public addLog = (content: string) => {

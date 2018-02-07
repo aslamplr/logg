@@ -13,7 +13,7 @@ interface LogListProps {
 
 export default observer((props: LogListProps) => (
   <Timeline className="LogList">
-    {props.store.Reversed.map((log, i) =>
+    {props.store.SortedByLatest.map((log, i) =>
       <Item key={i}>
         <span className="LogItemTime">{log.timestamp.toLocaleString()}</span>
         <Card className="LogItemCard" hoverable={true}>
