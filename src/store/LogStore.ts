@@ -52,7 +52,6 @@ export default class LogStore {
       content,
       timestamp: new Date(),
     };
-    this.logs.push(logItem);
     saveLogItem(logItem);
   }
 }
