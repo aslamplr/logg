@@ -21,12 +21,16 @@ export const saveLogItem = async (item: LogItem) => {
   }
 };
 
+let firstVisible: firebase.firestore.DocumentSnapshot;
 let lastVisible: firebase.firestore.DocumentSnapshot;
 
 export const executeQuery = async (query: firestore.Query, limit?: number) => {
   const latestLogs: LogItem[] = [];
   try {
     const docSnapshots = await query.limit(limit || pageLimit).get();
+    if (firstVisible === undefined && docSnapshots.docs.length > 0) {
+      firstVisible = docSnapshots.docs[0];
+    }
     lastVisible = docSnapshots.docs[docSnapshots.docs.length - 1];
     docSnapshots.forEach((rec) => {
       latestLogs.push(rec.data() as LogItem);
@@ -56,9 +60,15 @@ export const getLoadMore = async (limit?: number) => {
 };
 
 export const subscribeForNewLogs = (onNewLogs: (newItems: LogItem[]) => void) => {
-  getBaseQuery().onSnapshot((snapshot) => {
+  getBaseQuery().endBefore(firstVisible).onSnapshot((snapshot) => {
     const newItems: LogItem[] = [];
-    snapshot.forEach(doc => newItems.push(doc.data() as LogItem));
-    onNewLogs(newItems);
+    snapshot.docChanges.forEach(change => {
+      if (change.type === 'added') {
+        newItems.push(change.doc.data() as LogItem);
+      }
+    });
+    if (newItems.length > 0) {
+      onNewLogs(newItems);
+    }
   });
 };
