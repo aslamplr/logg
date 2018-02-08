@@ -4,27 +4,16 @@ import { firestore } from 'firebase';
 
 const pageLimit = 10;
 
-export const getCollection = (name: string) => {
+let firstVisible: firebase.firestore.DocumentSnapshot;
+let lastVisible: firebase.firestore.DocumentSnapshot;
+const realtimeCache: string[] = [];
+
+const getCollection = (name: string) => {
   const db = getFirestoreDb();
   return db.collection(name);
 };
 
-export const saveLogItem = async (item: LogItem) => {
-  const logs = getCollection('log');
-  try {
-    const resp = await logs.add(item);
-    return resp.id;
-  } catch (error) {
-    // tslint:disable-next-line:no-console
-    console.log('[E] Error saving log', error);
-    return null;
-  }
-};
-
-let firstVisible: firebase.firestore.DocumentSnapshot;
-let lastVisible: firebase.firestore.DocumentSnapshot;
-
-export const executeQuery = async (query: firestore.Query, limit?: number) => {
+const executeQuery = async (query: firestore.Query, limit?: number) => {
   const latestLogs: LogItem[] = [];
   try {
     const docSnapshots = await query.limit(limit || pageLimit).get();
@@ -48,18 +37,28 @@ const getBaseQuery = () => {
   return logs.orderBy('timestamp', 'desc');
 };
 
+export const saveLogItem = async (item: LogItem) => {
+  const logs = getCollection('log');
+  try {
+    const resp = await logs.add(item);
+    return resp.id;
+  } catch (error) {
+    // tslint:disable-next-line:no-console
+    console.log('[E] Error saving log', error);
+    return null;
+  }
+};
+
 export const getLatestLogs = async (limit?: number) => {
   return await executeQuery(getBaseQuery(), limit);
 };
 
-export const getLoadMore = async (limit?: number) => {
+export const fetchMore = async (limit?: number) => {
   if (lastVisible) {
     return await executeQuery(getBaseQuery().startAfter(lastVisible), limit);
   }
   return null;
 };
-
-const realtimeCache: string[] = [];
 
 export const subscribeForNewLogs = (onNewLogs: (newItems: LogItem[]) => void) => {
   getBaseQuery().endBefore(firstVisible).onSnapshot((snapshot) => {

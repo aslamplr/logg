@@ -18,7 +18,7 @@ class App extends React.Component {
         <LogCreator onLogContent={this.logStore.addLog}/>
         <LogList store={this.logStore} />
         <div style={{ textAlign: 'center' }}>
-        <Button onClick={() => this.logStore.getLoadMore()}>More</Button>
+          <Button onClick={() => this.logStore.fetchMore()}>More</Button>
         </div>
       </div>
     );

@@ -1,6 +1,6 @@
 import { observable, computed } from 'mobx';
 import { LogItem } from '../models/LogItem';
-import { saveLogItem, getLatestLogs, getLoadMore, subscribeForNewLogs } from '../service/logService';
+import { saveLogItem, getLatestLogs, fetchMore, subscribeForNewLogs } from '../service/LogService';
 import * as _ from 'lodash';
 
 /**
@@ -40,8 +40,8 @@ export default class LogStore {
     });
   }
 
-  public async getLoadMore() {
-    const moreLogs = await getLoadMore();
+  public async fetchMore() {
+    const moreLogs = await fetchMore();
     if (moreLogs) {
       this.logs = this.logs.concat(moreLogs);
     }

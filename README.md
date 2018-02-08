@@ -1,3 +1,13 @@
+#LOGG
+A project to demonstrate React, MobX, and Firebase (Firestore) with antd components
+This is a work in progress.
+My intent is to create an application to teach myself, and maybe others.
+
+Demo here in [https://logg.today](https://logg.today)
+
+Following part of this readme is kept intact from the Create React App -
+
+
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
 Below you will find some information on how to perform common tasks.<br>
