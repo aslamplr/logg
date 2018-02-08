@@ -5,8 +5,16 @@ My intent is to create an application to teach myself, and maybe others.
 
 Demo here in [https://logg.today](https://logg.today)
 
-Following part of this readme is kept intact from the Create React App -
+modify the config file in `./src/service/config`
+- `npm start` - to start the dev server
+- `npm install` - to install all the module dependencies.
+- `npm run build` - to build the app
+#### Deployment.
+- `npm install -g firebase-tools` - to globally install firebase tools.
+- `firebase login` - to login to firebase account.
+- `npm run build && firebase deploy` - to build and deploy the app
 
+#### Following part of this readme is kept intact from the Create React App -
 
 This project was bootstrapped with [Create React App](https://github.com/facebookincubator/create-react-app).
 
