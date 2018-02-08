@@ -1,7 +1,7 @@
-#LOGG
-A project to demonstrate React, MobX, and Firebase (Firestore) with antd components
-This is a work in progress.
-My intent is to create an application to teach myself, and maybe others.
+# LOGG
+A project to demonstrate React, MobX, and Firebase (Firestore) with antd components <br>
+This is a work in progress. <br>
+My intent is to create an application to teach myself, and maybe others. <br>
 
 Demo here in [https://logg.today](https://logg.today)
 
@@ -13,6 +13,16 @@ modify the config file in `./src/service/config`
 - `npm install -g firebase-tools` - to globally install firebase tools.
 - `firebase login` - to login to firebase account.
 - `npm run build && firebase deploy` - to build and deploy the app
+
+Routing is not included/demonstrated. <br>
+Features to be added - 
+- search using `algolia`
+- `relogg` just like, share in fb
+- users, authentication
+- clap, like like feature
+- remove content, only by the author
+- maybe comments to content.
+;)
 
 #### Following part of this readme is kept intact from the Create React App -
 
